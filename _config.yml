@@ -1,0 +1,29 @@
+title: Family Justice Courts Practice Directions 
+theme: minima
+plugins:
+  - jekyll-seo-tag
+  - jekyll-coffeescript
+section_order:
+  - Contents
+  - Part I - Preliminary
+  - Part II - Commencement of Proceedings
+  - Part III - Judge-Led Approach in Resolving Family
+  - Part IV - Processes relating to Children
+  - Part V - Alternate Dispute Resolution
+  - Part VI - Proceedings for the Dissolution of Marriage under Part X of Women’s Charter
+  - Part VII - Proceedings under Part VII and VIII of Women’s Charter
+  - Part VIII - Adoption of Children
+  - Part IX - Youth Courts
+  - Part X - International Child Abduction Act
+  - Part XI - Mental Capacity Act
+  - Part XII - Probate Proceedings
+  - Part XIII - General Procedure
+  - Part XIV - General Matters
+  - Part XV - Litigants in Person
+elastic_search:
+  index: templateindex
+  doctype: bare
+google_analytics: UA-113717369-4
+environment: LOCAL
+server_LOCAL: http://127.0.0.1:3000
+server_DEV: http://127.0.0.1:5000
