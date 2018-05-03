@@ -87,7 +87,6 @@ pages = [
 ]
 
 pageIndex = {}
-console.log site.section_order
 pageOrder = [
   {% for section_title in site.section_order %}
     {{ section_title | jsonify }}
@@ -101,7 +100,6 @@ else
       {{ site_page.name | jsonify }}
     {% endfor %}
   ]
-  console.log pageOrder
   pages.sort (a, b) -> return if pageOrder.indexOf(a.name) < pageOrder.indexOf(b.name) then -1 else 1
 
 
