@@ -7,6 +7,6 @@ plugins:
 elastic_search:
   index: templateindex
   doctype: bare
-environment: LOCAL
-server_LOCAL: http://127.0.0.1:3000
+environment: DEV
+server_LOCAL: https://opendoc.sg
 server_DEV: https://opendoc.sg
