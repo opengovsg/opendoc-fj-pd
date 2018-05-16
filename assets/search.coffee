@@ -119,7 +119,7 @@ siteHierarchy = {
   url: site.url
   text: []
 }
-
+sectionIndex = {}
 initSubsections = (pages) -> 
     sections = pages.map (page) ->
         root =
@@ -165,7 +165,15 @@ startBuildingHierarchy = () ->
       worker.terminate()
       statusElement.remove()
       renderToc(event.data.hierarchy)
-      resolve event.data.sections
+      sectionIndex = event.data.sectionIndex
+       # Build a serializable array for sending to workers
+      serializableSiteSections = Object.values(sectionIndex).map (section) ->
+        serializableSection = Object.assign({}, section)
+        delete serializableSection.parent
+        delete serializableSection.component
+        delete serializableSection.subsections
+        return serializableSection
+      resolve serializableSiteSections
     worker.onerror = (error) ->
       Promise.reject(error)
     worker.postMessage pages
@@ -201,6 +209,7 @@ searchIndexPromise = new Promise (resolve, reject) ->
         resolve 'Connected to server'
 
   req.open 'GET', search_endpoint, true
+  req.setRequestHeader 'X-Requested-With', 'XMLHttpRequest'
   req.send ''
 
 # Search
@@ -286,8 +295,9 @@ renderSearchResultsFromServer = (searchResults) ->
       element.setAttribute 'href', result._source.url
       element.innerHTML = result._source.title
       description = document.createElement('p')
-      description.innerHTML = "..." + result.highlight.content.join "..."
-      description.innerHTML += "..."
+      if result.highlight && result.highlight.content
+        description.innerHTML = "..." + result.highlight.content.join "..."
+        description.innerHTML += "..."
       element.appendChild description
       container.appendChild element
       return
@@ -340,6 +350,7 @@ esSearch = (query) ->
   esQuery = createEsQuery query
   req.open 'POST', search_endpoint, true
   req.setRequestHeader 'Content-Type', 'application/json'
+  req.setRequestHeader 'X-Requested-With', 'XMLHttpRequest'
   req.send JSON.stringify esQuery
 
 lunrSearch = (searchIndex, query) ->
