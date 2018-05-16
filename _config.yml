@@ -5,8 +5,10 @@ plugins:
   - jekyll-seo-tag
   - jekyll-coffeescript
 elastic_search:
-  index: templateindex
+  index: fjc-pd
   doctype: bare
+kramdown:
+  auto_id_stripping: true
 environment: DEV
-server_LOCAL: https://opendoc.sg
+server_LOCAL: http://127.0.0.1:3000
 server_DEV: https://opendoc.sg
