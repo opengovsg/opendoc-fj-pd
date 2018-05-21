@@ -1,20 +1,21 @@
 // Variables
 // ============================================================================
 // Fonts
-$base-font-family:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base-font-family:        'Source Sans Pro', sans-serif;
 $base-font-size:          16px;
-$base-font-weight:        400;
+$base-font-weight:        300;
 // Colors
 $primary-text-color:      #333;
 $secondary-text-color:    #777;
-$divider-color:           #999;
+$selected-text-color:     #000;
+$divider-color:           #eaeaea;
 $base-background-color:   #FFF;
 $well-background-color:   darken($base-background-color, 9%);
 // Spacing
 $base-line-height:        1.5;
 $base-horizontal-padding: 1.0em;
 $base-vertical-padding:   0.5em;
-$block-spacing:           2.0rem;
+$block-spacing:           1.5rem;
 $item-spacing:            1.0rem;
 $inline-spacing:          0.2em;
 $base-border-radius:      0.2rem;
@@ -48,22 +49,27 @@ body {
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: $block-spacing;
   color: lighten($secondary-text-color, 20%);
-  font-weight: $base-font-weight - 100;
+  font-weight: $base-font-weight + 100;
   &:first-child { margin-top: 0; }
 }
-h1 { font-size: 2.0rem; margin-top: 2.0 * $block-spacing; }
-h2 { font-size: 1.8rem; margin-top: 1.8 * $block-spacing; }
-h3 { font-size: 1.6rem; margin-top: 1.6 * $block-spacing; }
-h4 { font-size: 1.4rem; margin-top: 1.4 * $block-spacing; }
+h1 { font-size: 2.0rem; margin-top: 1.5 * $block-spacing; }
+h1:after {
+    content:' ';
+    display:block;
+    border: 0.5px solid #5e5e5e;
+}
+h2 { font-size: 1.8rem; margin-top: 1.2 * $block-spacing; }
+h3 { font-size: 1.6rem; margin-top: 1.2 * $block-spacing; }
+h4 { font-size: 1.4rem; margin-top: 1.2 * $block-spacing; }
 h5 { font-size: 1.2rem; margin-top: 1.2 * $block-spacing; }
-h6 { font-size: 1.1rem; margin-top: 1.0 * $block-spacing; }
+h6 { font-size: 1.1rem; margin-top: 1.2 * $block-spacing; }
 @include large-screen {
-  h1 { font-size: 4.0rem; }
-  h2 { font-size: 3.2rem; }
-  h3 { font-size: 2.5rem; }
-  h4 { font-size: 2.0rem; }
-  h5 { font-size: 1.6rem; }
-  h6 { font-size: 1.3rem; }
+  h1 { font-size: 2.4rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.6rem; }
+  h4 { font-size: 1.4rem; }
+  h5 { font-size: 1.2rem; }
+  h6 { font-size: 1.0rem; }
 }
 
 // Blocks

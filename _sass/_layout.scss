@@ -1,13 +1,14 @@
 // Variables
 // ============================================================================
-$spacing:                     15px;
+$spacing:                     10px;
 $large-spacing:               2 * $spacing;
 $content-width:               50em;
-$sidebar-content-width:       12em;
+$sidebar-content-width:       15em;
+$site-header-spacing:         15px;
 
 // Implementation
 // ============================================================================
-$site-header-height: calc(2 * #{$spacing} + 1em);
+$site-header-height: calc(2 * #{$site-header-spacing} + 1em);
 $site-nav-width: calc(#{$sidebar-content-width} + 2 * #{$large-spacing});
 
 // Body
@@ -136,6 +137,25 @@ body {
     input:disabled ~ .search-icon { display: none; }
   }
 
+  .description {
+    text-align: center;
+    padding: $spacing;
+    display: block;
+    border-bottom: 1px solid $divider-color;
+
+    .description-logo {
+      width: 80%;
+    }
+    .description-last-updated{
+      font-size: 60%;
+
+    }
+  }
+
+  .table-of-contents {
+    padding: $large-spacing;
+  }
+
   .nav-branch {
     position: relative;
     .expand-button {
@@ -162,8 +182,12 @@ body {
   .nav-link {
     display: block;
     color: $secondary-text-color;
-    &.selected { color: $primary-text-color; background-color: darken($base-background-color, 5%) ;  }
-    padding: $large-spacing/2 $large-spacing;
+    &.selected { 
+      color: $selected-text-color; 
+      // background-color: darken($base-background-color, 5%);
+      border-right: 3px solid #bc6d75;
+    }
+    padding: $spacing $spacing/2 $spacing $large-spacing;
     cursor: pointer;
     text-decoration: none;
     &:hover { background-color: $well-background-color; }
