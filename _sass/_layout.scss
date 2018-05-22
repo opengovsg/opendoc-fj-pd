@@ -49,7 +49,7 @@ body {
     .menu-icon {
       display: block;
       svg path { fill: $primary-text-color; }
-    }    
+    }
   }
 }
 
@@ -65,7 +65,7 @@ body {
   // On larger screens the content stays in place and we move the sidebar in
   right: 100%;
   #menu-toggle:checked ~ & { right: unset; left: 0; }
-  @include medium-screen { 
+  @include medium-screen {
     right: unset; left: 0;
     #menu-toggle:checked ~ & { right: 100%; left: unset; }
   }
@@ -99,7 +99,7 @@ body {
       margin-bottom: auto;
       path { fill: $secondary-text-color; }
     }
-    &.filled .search-icon { display: none; } 
+    &.filled .search-icon { display: none; }
     .clear-button {
       position: absolute;
       top: 0;
@@ -120,7 +120,7 @@ body {
       }
       &:hover .clear-icon path { fill: $primary-text-color; }
     }
-    &.filled .clear-button { display: unset; } 
+    &.filled .clear-button { display: unset; }
     input {
       position: absolute;
       display: block;
@@ -139,16 +139,23 @@ body {
 
   .description {
     text-align: center;
-    padding: $spacing;
+    padding: $spacing*2 $spacing;
     display: block;
     border-bottom: 1px solid $divider-color;
 
     .description-logo {
       width: 80%;
+      margin-bottom: $spacing;
     }
     .description-last-updated{
-      font-size: 60%;
+      font-size: 80%;
+      color: $secondary-text-color;
+    }
 
+    a{
+      text-decoration: none;
+      cursor: pointer;
+      color: $primary-text-color;
     }
   }
 
@@ -158,16 +165,7 @@ body {
 
   .nav-branch {
     position: relative;
-    .expand-button {
-      position: absolute;
-      top: 0;
-      left: 0;
-      padding: calc(#{$spacing} - 0.2em) calc(#{$large-spacing}/2 - 1em/2); 
-      color: $secondary-text-color;
-      cursor: pointer;
-      font-size: 120%;
-      &:before { content: "\25B8"; }
-    }
+
     & > .nav-branch {
       display: none;
       margin-left: $item-spacing;
@@ -175,22 +173,29 @@ body {
     }
     &.expanded {
       & > .nav-branch { display: block; }
-      > .expand-button:before { content: "\25BE"; }
+
     }
   }
 
   .nav-link {
     display: block;
-    color: $secondary-text-color;
-    &.selected { 
-      color: $selected-text-color; 
-      // background-color: darken($base-background-color, 5%);
-      border-right: 3px solid #bc6d75;
-    }
-    padding: $spacing $spacing/2 $spacing $large-spacing;
+    color: $primary-text-color;
+    padding-top: $spacing;
+    padding-bottom: $spacing;
+    padding-right: $spacing;
     cursor: pointer;
     text-decoration: none;
-    &:hover { background-color: $well-background-color; }
+
+    &:hover{
+      text-decoration: underline;
+    }
+
+    &.selected {
+      color: $primary-brand-color;
+      // background-color: darken($base-background-color, 5%);
+      border-right: 3px solid $primary-brand-color;
+    }
+
     p {
       margin: $item-spacing/2 0;
       color: $primary-text-color;
@@ -204,7 +209,7 @@ body {
 //----------
 .site-main {
   z-index: 0;
-  // On small screens fill the screen with content 
+  // On small screens fill the screen with content
   // Shift everything right when menu is open
   box-sizing: border-box;
   width: 100%;
@@ -212,18 +217,18 @@ body {
   margin-top: $site-header-height;
   padding: $spacing;
   #menu-toggle:checked ~ & { transform: translate($site-nav-width); }
-  // On medium screens fill the residual space 
+  // On medium screens fill the residual space
   // Expand to fill when the menu is closed
-  @include medium-screen { 
+  @include medium-screen {
     width: auto;
     margin-left: $site-nav-width;
     padding: $large-spacing;
-    #menu-toggle:checked ~ & { 
-      transform: none; 
+    #menu-toggle:checked ~ & {
+      transform: none;
       margin-left: 0;
     }
   }
-  // On large screens stay centered 
+  // On large screens stay centered
   // Do nothing when menu is opened
   @include large-screen {
     margin-left: 0;

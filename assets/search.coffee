@@ -44,15 +44,15 @@ searchBoxElement.oninput = (event) ->
     siteSearchElement.classList.remove "filled"
 
 {% capture endpoint %}
-{% if site.environment == "DEV" %} 
-{{ site.server_DEV | append: '/' |  append: site.elastic_search.index | jsonify }} 
-{% elsif site.environment == "LOCAL" %} 
-{{ site.server_LOCAL | append: '/' | append: site.elastic_search.index | jsonify }} 
-{% else %} 
+{% if site.environment == "DEV" %}
+{{ site.server_DEV | append: '/' |  append: site.elastic_search.index | jsonify }}
+{% elsif site.environment == "LOCAL" %}
+{{ site.server_LOCAL | append: '/' | append: site.elastic_search.index | jsonify }}
+{% else %}
 'INVALID-ENVIRONMENT'
 {% endif %}
 {% endcapture %}
-endpoint = {{endpoint}} 
+endpoint = {{endpoint}}
 search_endpoint = endpoint + '/search'
 # Data Blob
 # =============================================================================
@@ -81,8 +81,8 @@ pages = [
       "content": {{ site_page.content | markdownify | jsonify }},
       {% endif %}
       "url": {{ site_page.url | relative_url | jsonify }}
-    } 
-    
+    }
+
   {% endfor %}
 ]
 
@@ -92,7 +92,7 @@ pageOrder = [
     {{ section_title | jsonify }}
   {% endfor %}
 ]
-if pageOrder.length > 0 
+if pageOrder.length > 0
   pages.sort (a, b) -> return if pageOrder.indexOf(a.title) < pageOrder.indexOf(b.title) then -1 else 1
 else
   pageOrder = [
@@ -120,7 +120,7 @@ siteHierarchy = {
   text: []
 }
 sectionIndex = {}
-initSubsections = (pages) -> 
+initSubsections = (pages) ->
     sections = pages.map (page) ->
         root =
             parent: siteHierarchy
@@ -138,11 +138,6 @@ siteHierarchy.subsections = initSubsections(pages)
 buildNav = (section) ->
   navBranch = document.createElement('div')
   navBranch.classList.add('nav-branch')
-  if section.subsections.length > 0
-    expandButton = document.createElement('div');
-    expandButton.classList.add('expand-button')
-    expandButton.onclick = (event) -> navBranch.classList.toggle("expanded")
-    navBranch.appendChild expandButton
   navLinkElement = document.createElement('a')
   navLinkElement.classList.add('nav-link')
   navLinkElement.setAttribute('href', section.url)
@@ -153,8 +148,8 @@ buildNav = (section) ->
   return navBranch
 
 startBuildingHierarchy = () ->
-  
-  promise = new Promise (resolve, reject) -> 
+
+  promise = new Promise (resolve, reject) ->
     statusElement = document.createElement('div')
     statusElement.id = 'hierarchyWorkerStatus'
     statusElement.textContent = 'Building site hierarchy'
@@ -195,13 +190,13 @@ searchOnServer = false
 searchIndexPromise = new Promise (resolve, reject) ->
   req=new XMLHttpRequest()
   req.timeout=1000
-  req.addEventListener 'readystatechange', -> 
-    if req.readyState is 4 # ReadyState Complete  
+  req.addEventListener 'readystatechange', ->
+    if req.readyState is 4 # ReadyState Complete
       successResultCodes=[200,304]
       if req.status not in successResultCodes
         hierarchyPromise = startBuildingHierarchy()
         hierarchyPromise.then (sections) ->
-          indexPromise = startBuildingIndex sections 
+          indexPromise = startBuildingIndex sections
           indexPromise.then (searchIndex) ->
             resolve(searchIndex)
       else
@@ -280,13 +275,13 @@ renderSearchResults = (searchResults) ->
 renderSearchResultsFromServer = (searchResults) ->
   container = document.getElementsByClassName('search-results')[0]
   container.innerHTML = ''
-  if typeof searchResults.hits == 'undefined' 
+  if typeof searchResults.hits == 'undefined'
     error = document.createElement('p')
     error.innerHTML = searchResults
     container.appendChild error
   else if searchResults.hits.hits.length == 0
     error = document.createElement('p')
-    error.innerHTML = 'Results matching your query were not found' 
+    error.innerHTML = 'Results matching your query were not found'
     container.appendChild error
   else
     searchResults.hits.hits.forEach (result) ->
@@ -323,7 +318,7 @@ createEsQuery = (queryStr) ->
   title_q = { "match_phrase_prefix": {"title":{"query": queryStr, "slop":3,"max_expansions":10, "boost":2}} }
   content_q = { "match_phrase_prefix":{"content":{"query":queryStr, "slop":3,"max_expansions":10 }} }
   bool_q = { "bool" : { "should" : [ title_q, content_q ] }}
-  
+
   highlight = {}
   highlight.require_field_match = false
   highlight.fields = {}
@@ -331,12 +326,12 @@ createEsQuery = (queryStr) ->
 
   {"_source": source, "query" : bool_q, "highlight" : highlight}
 
-# Call the API 
-esSearch = (query) -> 
+# Call the API
+esSearch = (query) ->
   #console.log 'Executing debounced query: ' , query
   req=new XMLHttpRequest()
-  req.addEventListener 'readystatechange', -> 
-    if req.readyState is 4 # ReadyState Complete  
+  req.addEventListener 'readystatechange', ->
+    if req.readyState is 4 # ReadyState Complete
       successResultCodes=[200,304]
       if req.status in successResultCodes
         result = JSON.parse req.responseText
@@ -356,10 +351,10 @@ esSearch = (query) ->
 lunrSearch = (searchIndex, query) ->
   lunrResults = searchIndex.search(query + "~1")
   results = translateLunrResults(lunrResults)
-  renderSearchResults results  
+  renderSearchResults results
 
 # Enable the searchbox once the index is built
-enableSearchBox = (searchIndex) -> 
+enableSearchBox = (searchIndex) ->
   searchBoxElement.removeAttribute "disabled"
   searchBoxElement.classList.remove('loading')
   searchBoxElement.setAttribute "placeholder", "Search"
@@ -373,7 +368,7 @@ enableSearchBox = (searchIndex) ->
     else
       toc.setAttribute 'hidden', ''
       searchResults.removeAttribute 'hidden'
-  searchBoxElement.addEventListener 'input', 
+  searchBoxElement.addEventListener 'input',
     debounce( () ->
       query = searchBoxElement.value
       if query.length > 0
@@ -450,4 +445,3 @@ window.addEventListener "popstate", (event) ->
   testBody = new DOMParser().parseFromString(page.content, "text/html").body;
   if main.innerHTML.trim() isnt testBody.innerHTML.trim()
     main.innerHTML = page.content
-
