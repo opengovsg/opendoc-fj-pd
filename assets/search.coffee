@@ -281,7 +281,8 @@ renderSearchResultsFromServer = (searchResults) ->
     container.appendChild error
   else if searchResults.hits.hits.length == 0
     error = document.createElement('p')
-    error.innerHTML = 'Results matching your query were not found'
+    error.innerHTML = 'Results matching your query were not found.'
+    error.classList.add('not-found')
     container.appendChild error
   else
     searchResults.hits.hits.forEach (result) ->
