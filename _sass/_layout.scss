@@ -248,11 +248,7 @@ body {
 
 //search-results
 .search-results{
-  padding-left: $spacing;
-  padding-right: $spacing;
-    a{
-
-    }
+  margin: $spacing*2 $spacing;
 }
 
 //not-found search results{
