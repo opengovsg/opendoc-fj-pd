@@ -19,23 +19,11 @@ the Registrar confirming the appointment, providing the contact details of the p
 and a date of a case conference. The following documents may be enclosed with the
 letter:
 
-```
-(a) an Information Sheet on Child Representative, which the Child Representative
-is to give to the parties at the earliest possible opportunity together with any
-further explanation which the Child Representative deems fit, in compliance
-with Family Justice Rules and paragraph (7) below;
-```
-```
-(b) a Child Representative Practice Note, which the Child Representative is to read
-carefully and adhere to;
-```
-```
-(c) a Child Representative Checklist, which will be used at the case conference; and
-```
-```
-(d) a Questionnaire to the parties, which the Child Representative might use to
-obtain information from the parties.
-```
+: (a) an Information Sheet on Child Representative, which the Child Representative is to give to the parties at the earliest possible opportunity together with any further explanation which the Child Representative deems fit, in compliance with Family Justice Rules and paragraph (7) below;
+: (b) a Child Representative Practice Note, which the Child Representative is to read carefully and adhere to;
+: (c) a Child Representative Checklist, which will be used at the case conference; and
+: (d) a Questionnaire to the parties, which the Child Representative might use to obtain information from the parties.
+
 (5) Within 7 days from the receipt of the confirmation of appointment as described in
 paragraph (4) above, the Child Representative shall serve file and serve a Notice of
 Address for Service on Child Representative (Form 187 of Appendix A to these Practice
